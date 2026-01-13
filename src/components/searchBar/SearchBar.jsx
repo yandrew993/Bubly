@@ -3,7 +3,7 @@ import "./searchBar.scss";
 import { Link } from "react-router-dom";
 
 const types = ["apartment", "hostel"];
-const cities = ["Westlands", "Waiyaki Way", "Kisumu", "Nakuru", "Eldoret"];
+const cities = ["Kisumu", "Likoni", "Kutus", "Nakuru", "Eldoret"];
 
 function SearchBar() {
   const [query, setQuery] = useState({
