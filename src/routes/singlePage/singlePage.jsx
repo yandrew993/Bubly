@@ -77,7 +77,7 @@ function SinglePage() {
               <div className="user">
                 <img src={post.user.avatar} alt="" />
                 <span>{post.user.username}</span>
-                <p>The Owner</p>
+                <p>Attendant</p>
               </div>
             </div>
             <div className="bottomContainer">
@@ -123,20 +123,39 @@ function SinglePage() {
       <div className="features">
         <div className="wrapper">
           <div className="available">
-            <p>ROOMS: Available</p>
-            <div className="rooms">
-              <label htmlFor="type">Available Rooms</label>
-              <select name="availableRooms" id="availableRooms">
-                <option value="">314D</option>
-                <option value="hostel">512A</option>
-                <option value="apartment">512B</option>
-              </select>
+            <p>AVAILABILITY STATUS</p>
+            <div className="availabilityStatus">
+              {post.postDetail.available ? (
+                <div className="statusAvailable">
+                  <div className="statusBadge available">
+                    <span className="statusDot"></span>
+                    Available Now
+                  </div>
+                  <p className="statusMessage">This property is available for booking</p>
+                </div>
+              ) : (
+                <div className="statusUnavailable">
+                  <div className="statusBadge unavailable">
+                    <span className="statusDot"></span>
+                    Unavailable
+                  </div>
+                  <p className="statusMessage">
+                    Available from {post.postDetail.availableDate 
+                      ? new Date(post.postDetail.availableDate).toLocaleDateString('en-US', { 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        }) 
+                      : 'Soon'}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
-          <p className="title">General</p>
+          <p className="title">What this hotel offers!</p>
           <div className="listVertical">
-            <div className="feature">
+            {/* <div className="feature">
               <img src="/utility.png" alt="" />
               <div className="featureText">
                 <span>Utilities</span>
@@ -144,6 +163,28 @@ function SinglePage() {
                   {post.postDetail.utilities === "owner"
                     ? "Owner is responsible"
                     : "Tenant is responsible"}
+                </p>
+              </div>
+            </div> */}
+            <div className="feature">
+              <img src="/car.png" alt="" />
+              <div className="featureText">
+                <span>Parking</span>
+                <p>
+                  {post.postDetail.parking === "Yes"
+                    ? "Parking Available"
+                    : "Not Available"}
+                </p>
+              </div>
+            </div>
+            <div className="feature">
+              <img src="/Wifi.png" alt="" />
+              <div className="featureText">
+                <span>Wifi</span>
+                <p>
+                  {post.postDetail.utilities === "Yes"
+                    ? "Wifi Available"
+                    : "Not Available"}
                 </p>
               </div>
             </div>

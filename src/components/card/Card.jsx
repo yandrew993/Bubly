@@ -1,11 +1,46 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./card.scss";
 import { useSavedPosts } from "../../context/SavedPostsContext";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import apiRequest from "../../lib/apiRequest";
 
 function Card({ item }) {
 
   const { savedPosts, toggleSave } = useSavedPosts();
-  // const isSaved = savedPosts.has(item.id);
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  // ...existing code...
+
+  const handleChat = async () => {
+    if (!currentUser) {
+      navigate("/login");
+      return;
+    }
+    try {
+      // Send request to create a chat in the database
+      await apiRequest.post("/chats", {
+        userId: currentUser.id, // Logged-in user
+        receiverId: item.userId, // Post owner
+      });
+      
+      // Check if device is mobile/small screen
+      const isMobile = window.innerWidth < 768;
+      
+      // Navigate to profile with state
+      navigate(`/profile`, { 
+        state: { 
+          receiver: item.user.id,
+          autoScroll: isMobile,
+          showNotification: isMobile,
+          receiverName: item.user.username 
+        } 
+      });
+    } catch (err) {
+      console.error("Error starting chat:", err);
+    }
+  };
 
   return (
     <div className="card">
@@ -27,10 +62,10 @@ function Card({ item }) {
               <img src="/bed.png" alt="" />
               <span>{item.bedroom} bedroom</span>
             </div>
-            <div className="feature">
+            {/* <div className="feature">
               <img src="/bath.png" alt="" />
               <span>{item.bathroom} bathroom</span>
-            </div>
+            </div> */}
           </div>
           <div className="icons">
            
@@ -43,8 +78,8 @@ function Card({ item }) {
              >
   <img src="/save.png" alt="Save" />
             </div>
-            <div className="icon">
-              <img src="/chat.png" alt="" />
+            <div className="icon" onClick={handleChat}>
+              <img src="/chat.png" alt="Chat" />
             </div>
           </div>
         </div>

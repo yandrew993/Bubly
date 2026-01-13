@@ -234,18 +234,91 @@
 
       .available {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        border: 1px solid #e0e0e0;
 
-        input,
-        select {
-          width: 100px;
-          padding: 10px;
-          border: 1px solid #e0e0e0;
-          border-radius: 5px;
+        p {
           font-size: 14px;
-          border: none;
-          outline: auto;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          color: #333;
+          margin: 0;
+        }
+
+        .availabilityStatus {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+
+          .statusAvailable,
+          .statusUnavailable {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          }
+
+          .statusBadge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            width: max-content;
+
+            .statusDot {
+              width: 10px;
+              height: 10px;
+              border-radius: 50%;
+              display: inline-block;
+              animation: pulse 2s infinite;
+            }
+
+            &.available {
+              background-color: #d4edda;
+              color: #155724;
+              border: 1px solid #c3e6cb;
+
+              .statusDot {
+                background-color: #28a745;
+              }
+            }
+
+            &.unavailable {
+              background-color: #f8d7da;
+              color: #721c24;
+              border: 1px solid #f5c6cb;
+
+              .statusDot {
+                background-color: #dc3545;
+              }
+            }
+          }
+
+          .statusMessage {
+            font-size: 13px;
+            color: #666;
+            margin: 0;
+            padding-left: 26px;
+          }
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
         }
       }
 

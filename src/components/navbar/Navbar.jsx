@@ -19,7 +19,7 @@ function Navbar() {
       <div className="left">
         <a href="/" className="logo">
           <img src="/favicon.jpg" alt="" />
-          <span>E-Housing</span>
+          <span>Bubly</span>
         </a>
         <a href="/">Home</a>
         <a href="/aboutUs">About</a>
@@ -29,7 +29,10 @@ function Navbar() {
       <div className="right">
         {currentUser ? (
           <div className="user">
-            <img src={currentUser.avatar || "/noavatar.jpg"} alt="" />
+            <Link to="/profile" className="avatarLink">
+              <img src={currentUser.avatar || "/noavatar.jpg"} alt="Profile Avatar" />
+              {number > 0 && <div className="notification">{number}</div>}
+            </Link>
             <span>{currentUser.username}</span>
             <Link to="/profile" className="profile">
               {number > 0 && <div className="notification">{number}</div>}
@@ -44,14 +47,13 @@ function Navbar() {
             </a>
           </>
         )}
-        <div className="menuIcon">
+        <div className={`menuIcon ${open ? "active" : ""}`} onClick={() => setOpen((prev) => !prev)}>
           <img
-            src="/menu.png"
-            alt=""
-            onClick={() => setOpen((prev) => !prev)}
+            src={open ? "/close.svg" : "/menu.png"}
+            alt={open ? "Close menu" : "Open menu"}
           />
         </div>
-        <div className={open ? "menu active" : "menu"}>
+        <div className={open ? "menu active" : "menu"} onClick={() => setOpen(false)}>
           <a href="/">Home</a>
           <a href="/aboutUs">About</a>
           <a href="/contactUs">Contact</a>

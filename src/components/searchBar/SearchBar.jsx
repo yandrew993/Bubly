@@ -3,6 +3,7 @@ import "./searchBar.scss";
 import { Link } from "react-router-dom";
 
 const types = ["apartment", "hostel"];
+const cities = ["Westlands", "Waiyaki Way", "Kisumu", "Nakuru", "Eldoret"];
 
 function SearchBar() {
   const [query, setQuery] = useState({
@@ -22,7 +23,7 @@ function SearchBar() {
 
   return (
     <div className="searchBar">
-      <div className="type">
+      {/* <div className="type">
         {types.map((type) => (
           <button
             key={type}
@@ -32,14 +33,21 @@ function SearchBar() {
             {type}
           </button>
         ))}
-      </div>
+      </div> */}
       <form>
-        <input
-          type="text"
+        <select
           name="city"
-          placeholder="City"
+          value={query.city}
           onChange={handleChange}
-        />
+          className="citySelect"
+        >
+          <option value="">Select City</option>
+          {cities.map((city) => (
+            <option key={city} value={city}>
+              {city}
+            </option>
+          ))}
+        </select>
         <input
           type="number"
           name="minPrice"

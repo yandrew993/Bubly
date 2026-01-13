@@ -67,13 +67,50 @@ nav {
       display: flex;
       align-items: center;
       font-weight: bold;
+      gap: 10px;
+
+      .avatarLink {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        text-decoration: none;
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+          transition: all 0.3s ease;
+          display: block;
+
+          &:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          }
+        }
+
+        .notification {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background-color: red;
+          color: white;
+          border-radius: 50%;
+          width: 26px;
+          height: 26px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          font-weight: bold;
+        }
+      }
 
       img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 20px;
+        display: none;
       }
 
       span {
@@ -112,20 +149,41 @@ nav {
     .menuIcon {
       display: none;
       z-index: 999;
+      cursor: pointer;
+      padding: 8px;
+      transition: all 0.3s ease;
 
       img {
         width: 36px;
         height: 36px;
         cursor: pointer;
+        display: block;
+        transition: transform 0.3s ease;
+        filter: invert(0%);
+
+        &[src*="close"] {
+          filter: invert(100%);
+        }
       }
 
       @include sm {
-        display: inline;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+      }
+
+      &:hover img {
+        transform: scale(1.1);
+      }
+
+      &.active {
+        z-index: 10000;
       }
     }
 
     .menu {
-      position: absolute;
+      position: fixed;
       top: 0;
       right: -50%;
       background-color: black;
@@ -138,6 +196,7 @@ nav {
       align-items: center;
       justify-content: center;
       font-size: 24px;
+      z-index: 9999;
 
       &.active {
         right: 0;

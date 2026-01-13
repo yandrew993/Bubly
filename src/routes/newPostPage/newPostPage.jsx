@@ -6,6 +6,8 @@ import apiRequest from "../../lib/apiRequest";
 import UploadWidget from "../../components/uploadWidget/uploadWidget.jsx";
 import { useNavigate } from "react-router-dom";
 
+const cities = ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"];
+
 function NewPostPage() {
   const [value, setValue] = useState("");
   const [images, setImages] = useState([]);
@@ -36,18 +38,21 @@ function NewPostPage() {
         postDetail: {
           desc: value,
           utilities: inputs.utilities,
+          parking: inputs.parking,
           pet: inputs.pet,
           income: inputs.income,
           size: parseInt(inputs.size),
           school: parseInt(inputs.school),
           bus: parseInt(inputs.bus),
           restaurant: parseInt(inputs.restaurant),
+          available: true,
+          availableDate: new Date().toISOString(),
         },
       });
       navigate("/" + res.data.id);
     } catch (err) {
       console.log(err);
-      setError(error);
+      setError(err.message || "An error occurred");
     }
   };
 
@@ -75,7 +80,14 @@ function NewPostPage() {
             </div>
             <div className="item">
               <label htmlFor="city">City</label>
-              <input id="city" name="city" type="text" />
+              <select id="city" name="city" required>
+                <option value="">Select City</option>
+                {cities.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="item">
               <label htmlFor="bedroom">Bedroom Number</label>
@@ -118,6 +130,20 @@ function NewPostPage() {
                 <option value="owner">Owner is responsible</option>
                 <option value="tenant">Tenant is responsible</option>
                 <option value="shared">Shared</option>
+              </select>
+            </div>
+            <div className="item">
+              <label htmlFor="parking">Parking Availability</label>
+              <select name="parking">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+            <div className="item">
+              <label htmlFor="utilities">Wifi Availability</label>
+              <select name="utilities">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </select>
             </div>
             <div className="item">

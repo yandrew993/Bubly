@@ -2,14 +2,45 @@ import Chat from "../../components/chat/Chat";
 import List from "../../components/list/List";
 import "./profilePage.scss";
 import apiRequest from "../../lib/apiRequest";
-import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
-import { Suspense, useContext } from "react";
+import { Await, Link, useLoaderData, useNavigate, useLocation } from "react-router-dom";
+import { Suspense, useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 function ProfilePage() {
   const data = useLoaderData();
   const { updateUser, currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+
+  // Auto-scroll and notification for mobile chat redirect
+  useEffect(() => {
+    if (location.state?.autoScroll && location.state?.showNotification) {
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) {
+        // Show notification
+        const receiverName = location.state?.receiverName || "User";
+        setNotificationMessage(`Click on ${receiverName} to start the conversation!`);
+        setShowNotification(true);
+
+        // Auto-scroll to chat container after a short delay
+        setTimeout(() => {
+          const chatContainer = document.querySelector(".chatContainer");
+          if (chatContainer) {
+            chatContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 500);
+
+        // Auto-hide notification after 5 seconds
+        const notificationTimer = setTimeout(() => {
+          setShowNotification(false);
+        }, 5000);
+
+        return () => clearTimeout(notificationTimer);
+      }
+    }
+  }, [location.state]);
 
   const handleLogout = async () => {
     try {
@@ -91,6 +122,15 @@ function ProfilePage() {
       </div>
 
       <div className="chatContainer">
+        {showNotification && (
+          <div className="chatNotification">
+            <div className="notificationContent">
+              <span className="notificationIcon">💬</span>
+              <p>{notificationMessage}</p>
+              <button onClick={() => setShowNotification(false)}>✕</button>
+            </div>
+          </div>
+        )}
         <div className="wrapper">
           <Suspense fallback={<p>Loading...</p>}>
             <Await

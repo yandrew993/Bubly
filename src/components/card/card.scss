@@ -4,12 +4,23 @@
   display: flex;
   gap: 20px;
 
+  @include sm {
+    flex-direction: column;
+    gap: 15px;
+  }
+
   .imageContainer {
     flex: 2;
     height: 200px;
 
     @include md {
       display: none;
+    }
+
+    @include sm {
+      display: block;
+      height: 250px;
+      flex: 1;
     }
 
     img {
@@ -26,6 +37,10 @@
     justify-content: space-between;
     gap: 10px;
 
+    @include sm {
+      flex: 1;
+    }
+
     img {
       width: 16px;
       height: 16px;
@@ -36,6 +51,11 @@
       font-weight: 600;
       color: #444;
       transition: all 0.4s ease;
+
+      @include sm {
+        font-size: 18px;
+        margin: 0;
+      }
 
       &:hover {
         color: #000;
@@ -49,6 +69,11 @@
       align-items: center;
       gap: 5px;
       color: #888;
+
+      @include sm {
+        font-size: 13px;
+        margin: 5px 0;
+      }
     }
 
     .price {
@@ -58,6 +83,11 @@
       border-radius: 5px;
       background-color: rgba(254, 205, 81, 0.438);
       width: max-content;
+
+      @include sm {
+        font-size: 18px;
+        padding: 8px 12px;
+      }
     }
 
     .bottom {
@@ -65,10 +95,21 @@
       justify-content: space-between;
       gap: 10px;
 
+      @include sm {
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 10px;
+      }
+
       .features {
         display: flex;
         gap: 20px;
         font-size: 14px;
+
+        @include sm {
+          gap: 15px;
+          font-size: 13px;
+        }
 
         .feature {
           display: flex;
@@ -77,12 +118,20 @@
           background-color: whitesmoke;
           padding: 5px;
           border-radius: 5px;
+
+          @include sm {
+            padding: 8px 10px;
+          }
         }
       }
 
       .icons {
         display: flex;
         gap: 20px;
+
+        @include sm {
+          gap: 15px;
+        }
 
         .icon {
           border: 1px solid #999;
@@ -92,6 +141,10 @@
           display: flex;
           align-items: center;
           justify-content: center;
+
+          @include sm {
+            padding: 8px 10px;
+          }
 
           &:hover {
             background-color: lightgray;
