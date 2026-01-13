@@ -44,11 +44,6 @@ function App() {
           loader: listPageLoader,
         },
         {
-          path: "/:id",
-          element: <SinglePage />,
-          loader: singlePageLoader,
-        },
-        {
           path: "/login",
           element: <Login />,
         },
@@ -57,11 +52,22 @@ function App() {
           element: <Register />,
         },
         {
-          path: "/completeOrder", // ✅ Define a route for OrderComplete
+          path: "/completeOrder",
           element: <CompleteOrder />,
         },
-        {path : "/forgot-password", element : <ForgotPassword /> },
-        { path : "/reset-password/:token", element : <ResetPassword /> },
+        {
+          path: "/forgot-password",
+          element: <ForgotPassword />,
+        },
+        {
+          path: "/reset-password/:token",
+          element: <ResetPassword />,
+        },
+        {
+          path: "/:id",
+          element: <SinglePage />,
+          loader: singlePageLoader,
+        },
       ],
     },
     {
