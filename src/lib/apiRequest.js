@@ -1,6 +1,6 @@
 import axios from "axios";
 const apiRequest = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "https://e-housing-e4yj.onrender.com/api",
   withCredentials: true,
 });
 export default apiRequest;

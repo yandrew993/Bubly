@@ -29,7 +29,7 @@ function HomePage() {
   useEffect(() => {
     const fetchLatestPosts = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/posts/latest");
+        const res = await fetch("https://e-housing-e4yj.onrender.com/api/posts/latest");
         const data = await res.json();
         setLatestPosts(data);
         setLoading(false);
